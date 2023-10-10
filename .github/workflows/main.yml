@@ -16,7 +16,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        
+
       - name: Docker meta
         id: meta
         uses: docker/metadata-action@v5
@@ -33,7 +33,7 @@ jobs:
             type=sha
 
       - run: |
-          echo tags: ${{ steps.meta.outputs.tags }} labels: ${{ steps.meta.outputs.labels }}
+          echo tags: ${{ toJson(steps.meta.outputs.tags) }} 
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
