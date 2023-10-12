@@ -55,3 +55,16 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+      - name: Get the list of tags
+        run: |
+          www=($(curl -L -s 'https://registry.hub.docker.com/v2/repositories/godlikeprofi/clockbox/tags?page_size=10' | jq -r '.results[].name'))
+          echo "Tags: ${www[*]}"
+          echo "Last Tag: ${www[-1]}"
+          echo "First Tag: ${www[0]}"
+          echo "Total Tags: ${#www[@]}"
+          echo "Last Element: ${www[${#www[@]}-1]}"
+        env:
+          WWW: ${{ toJson(www) }}
+      - name: Display the www list
+        run: |
+          echo "www: $WWW"
