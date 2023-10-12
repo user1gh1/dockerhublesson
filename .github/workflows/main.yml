@@ -64,7 +64,7 @@ jobs:
           echo "Total Tags: ${#www[@]}"
           echo "Last Element: ${www[${#www[@]}-1]}"
         env:
-          WWW: ${{ toJson(($(curl -L -s 'https://registry.hub.docker.com/v2/repositories/godlikeprofi/clockbox/tags?page_size=10' | jq -r '.results[].name'))) }}
+          WWW: ${{ toJson((curl -L -s 'https://registry.hub.docker.com/v2/repositories/godlikeprofi/clockbox/tags?page_size=10' | jq -r '.results[].name')) }}
       - name: Display the www list
         run: |
           echo "www: $www"
